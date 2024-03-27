@@ -1,0 +1,148 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   
+}
+body{
+    overflow-x: hidden;
+    
+}
+.dropdown-menu .dropdown-item:hover {
+    background-color:blue;
+    color: white; 
+}
+
+#map {
+        position: absolute;
+        top: 60PX;
+        left: 0;
+        height: 90vh;
+        width: 100vw;
+        z-index: 0;
+}
+    
+
+
+.form-control {
+    position: relative;
+    /* margin-bottom: 30px; */
+    height: 40px;
+    overflow-y: auto;
+}
+
+.form-control i {
+    position: absolute;
+    left: 15px;
+    top: 14px;
+    color: #32495e;
+}
+
+.form-control input {
+    width: 100%;
+    max-width: 95%;
+
+    padding: 12px 0 12px 37px;
+    border: 2px solid #00569f1c;
+    background-color: rgb(232, 232, 232);
+    color: rgb(50, 73, 94);
+    border-radius: 6px;
+ 
+    transition: all 0.3s ease-in-out 0s;
+    /* transform: translate(-100%); */
+}
+
+.form-control input:focus {
+    outline: none;
+    border: 2px solid blue;
+}
+
+.form-control input:invalid:not(:focus):not(:placeholder-shown) {
+    border: 2px solid #ff3860;
+}
+
+.btn{
+    width: 100%;
+    max-width: 95%;
+    padding: 12px 0 12px 37px;
+    top: 50px;
+}
+.leaflet-touch .leaflet-bar a {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    
+}
+.menu-bar{
+    z-index: 999;
+    position: fixed;
+    left: 20px;
+    border: none;
+    background-color: transparent;
+ 
+}
+
+  .draggable {
+    width: 100px;
+    height: 100px;
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    line-height: 100px;
+    cursor: move; 
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.custom-close-btn{
+    color: red !important;
+}
+.from{
+    height: 100px;
+    width: 100%;
+}
+.custom-modal-dialog {
+    max-width: 50%; 
+}
+
+.modal-content {
+    height: 400px; 
+    overflow-y: auto;
+    max-width: 90%;
+    position: relative;
+}
+
+.modal.fade.show {
+        display: block !important;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-dialog.draggable-modal {
+        position: fixed;
+        top: 30px;
+        left: 0;  
+        margin-left: 0;
+        margin-right: auto;
+        width: 70%; 
+        max-width: 400px; 
+        height: 100vh;
+        overflow-y: auto; 
+    }
+
+    .modal-content {
+        height: 400px;
+        border: none;
+        border-radius: 0;
+        top: 60px;
+    }
+
+    
+
+
+
+
+
+
+   
+
+
