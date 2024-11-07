@@ -1,12 +1,9 @@
 const main_url = "https://info.dpzoning.com/geoserver/";
 
-
 // Live location on page load
 map.on('load', function() {
   LiveLocation();  // Call live location when page loads
 });
-
-
 function LiveLocation() {
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
@@ -15,33 +12,50 @@ function LiveLocation() {
 
           console.log("Accurate Latitude: " + lat + ", Longitude: " + lon);
 
-          map.setView([lat, lon], 15); // Set view to live location
+          map.setView([lat, lon], 15); // Center map on live location
 
-          // Add marker for live location with lat and long in popup
-          L.marker([lat, lon]).addTo(map)
-              .bindPopup("Current Location:<br>Lat: " + lat + "<br>Long: " + lon)  // Corrected here
-              .openPopup();
+          // GeoServer query for constituency name
+          var geoServerURL = `${main_url}Mojani/ows?service=WFS&version=1.1.0&request=GetFeature&typeName=Mojani:Legislative_Assembly_Boundary&outputFormat=application/json&cql_filter=INTERSECTS(geometry, POINT(${lon} ${lat}))`;
+          console.log("GeoServer URL:", geoServerURL); // Log GeoServer URL
+
+          $.getJSON(geoServerURL, function (data) {
+              if (data && data.features && data.features.length > 0) {
+                  var constituencyName = data.features[0].properties.ac_name; // Adjust field name if needed
+                  console.log("Constituency Name found:", constituencyName);
+
+                  L.marker([lat, lon]).addTo(map)
+                      .bindPopup(`Current Location:<br>Constituency: ${constituencyName}<br>Lat: ${lat}<br>Long: ${lon}`)
+                      .openPopup();
+              } else {
+                  console.log("No constituency found for this location.");
+                  L.marker([lat, lon]).addTo(map)
+                      .bindPopup(`Current Location:<br>Constituency: Unknown<br>Lat: ${lat}<br>Long: ${lon}`)
+                      .openPopup();
+              }
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+              console.error("GeoServer request failed:", textStatus, errorThrown);
+          });
 
       }, function (error) {
           alert("Unable to retrieve your location. Error: " + error.message);
-          console.error("Geolocation error: ", error);
+          console.error("Geolocation error:", error);
       }, {
-          enableHighAccuracy: true,  // Try for GPS accuracy
-          timeout: 15000,  // Longer timeout for accuracy
-          maximumAge: 0   // Ensure no cached location
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 0
       });
   } else {
       alert("Geolocation is not supported by this browser.");
   }
 }
 
+
 // Trigger live location when the page loads
 $(document).ready(function() {
   LiveLocation();
 });
-
+// ---------------------------------------------
 // search type
-
 document.addEventListener('DOMContentLoaded', (event) => {
  var columns =  {"ac_name": "Constituency name", "village": "Village Name", "my_name": "Candidate Name"  };
       var select = document.getElementById("search_type");
@@ -54,11 +68,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     select.appendChild(option);
         }
     }
-  
-    // Initialize selected value variable
     let selectedValue;
   
-    // Event listener for dropdown change
     $("#search_type").change(function () {
       var selectedValue = $(this).val();
       var selectedText = columns[selectedValue]; // Get corresponding label from columns object
@@ -68,8 +79,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
       input.placeholder = "Search " + selectedText;
       input.value = "";
   
-  
-      // Call autocomplete with empty array and selected column
       autocomplete(input, [], selectedValue);
   
       // Trigger search based on the selected column immediately after selecting
@@ -158,7 +167,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
               Legislative_Assembly_Boundary.setParams({
                 CQL_FILTER: cqlFilter,
                 maxZoom: 19.5,
-                // styles: "IWMS_points"
               });
               fitbous1(cqlFilter);
               fitbous(cqlFilter);
@@ -313,67 +321,6 @@ function fitbous(filter) {
 
 
 // popup
-
-
-
-// const layerDetails = {
-//     "Mojani:Legislative_Assembly_Boundary": ["my_name", "mva_name", "my", "mva", "ac_name"], 
-// };
-
-// // Create a mapping for user-friendly labels
-// const labelMapping = {
-//     "my_name": "MahaYuti Candidate Name",
-//     "mva_name": "MahaVikasAaghadi Candidate Name",
-//     "my": "MahaYuti",
-//     "mva": "MahaVikasAaghadi",
-//     "ac_name": "District Name"
-// };
-
-// map.on("click", async (e) => {
-//     let bbox = map.getBounds().toBBoxString();
-//     let size = map.getSize();
-  
-//     for (let layer in layerDetails) {
-//         let selectedKeys = layerDetails[layer];
-//         let urrr = `https://info.dpzoning.com/geoserver/Mojani/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=${layer}&STYLES&LAYERS=${layer}&exceptions=application%2Fvnd.ogc.se_inimage&INFO_FORMAT=application/json&FEATURE_COUNT=50&X=${Math.round(e.containerPoint.x)}&Y=${Math.round(e.containerPoint.y)}&SRS=EPSG%3A4326&WIDTH=${size.x}&HEIGHT=${size.y}&BBOX=${bbox}`;
-
-//         console.log(urrr, "mojanipopupurl");
-//         try {
-//             let response = await fetch(urrr);
-//             let html = await response.json();
-  
-//             if (html.features.length > 0) { // Check if any features are returned
-//                 var htmldata = html.features[0].properties;
-//                 let txtk1 = "";
-//                 for (let key of selectedKeys) {
-//                     // Get the label from the mapping
-//                     let label = labelMapping[key];
-//                     // Only include rows where the value is not null or undefined
-//                     if (htmldata.hasOwnProperty(key) && htmldata[key] != null) {
-//                         let value = htmldata[key];
-//                         txtk1 += "<tr><td>" + label + "</td><td>" + value + "</td></tr>";
-//                     }
-//                 }
-  
-//                 // If there is data to show, create and display the popup
-//                 if (txtk1) {
-//                     let detaildata1 = "<div style='max-height: 350px; max-height: 250px;'><table style='width:110%;' class='popup-table'>" + txtk1 + "</table></div>";
-//                     L.popup().setLatLng(e.latlng).setContent(detaildata1).openOn(map);
-//                 } else {
-//                     console.log("No valid features found at this location.");
-//                 }
-//             } else {
-//                 console.log("No features found at this location.");
-//             }
-//         } catch (error) {
-//             console.error("Error fetching data:", error);
-//         }
-//     }
-// });
-
-
-
-// Load candidate JSON data
 let candidateData = [];
 
 fetch("candidate_data.json")
@@ -410,7 +357,6 @@ map.on("click", (e) => {
     txtk1 += `<tr><td class="popup-header"><strong>Constituency:</strong></td><td>${constituency}</td></tr>`;
     txtk1 += `<tr><td class="popup-header"><strong>Total Candidates:</strong></td><td>${candidates.length}</td></tr>`;
   } else {
-    // Default content if no candidates are found for this constituency
     txtk1 += `<tr><td class="popup-header"><strong>Constituency:</strong></td><td>Kannad</td></tr>`;
     txtk1 += `<tr><td class="popup-header"><strong>Total Candidates:</strong></td><td>12</td></tr>`;
   }
@@ -459,15 +405,8 @@ function closeCandidateList() {
   document.body.style.overflow = 'auto';
 }
 
-
-
-// Function to get constituency name from the clicked location (You need to define this based on your map data)
 function getConstituencyFromLocation(latlng) {
-  // This function should return the constituency name based on the clicked latitude and longitude.
-  // You may have a predefined mapping of latlng to constituencies, or use a spatial query if you have that data.
-  // For now, I’ll just assume the name is returned directly for simplicity.
-  
-  // Example mapping: (This is just for illustration. Replace with your own logic)
+
   if (latlng.lat > 20 && latlng.lng < 70) {
     return "Constituency A";  // Replace with your actual mapping logic
   } else if (latlng.lat > 30 && latlng.lng < 80) {
@@ -479,12 +418,9 @@ function getConstituencyFromLocation(latlng) {
 
 // Function to handle 'View More' button click
 function viewMore(constituency) {
-  // Redirect to or open a new page with more details
-  // For example, you can open a new URL to show more candidate info based on the constituency
-  // window.open(`candidate_details.html?constituency=${constituency}`, "_blank");
+
 }
 
-// Function to display the candidatesDiv at the bottom of the screen
 function showCandidatesDiv() {
   const candidatesDiv = document.getElementById("candidatesDiv");
   const mapContainer = document.getElementById("map");
@@ -512,7 +448,7 @@ document.getElementById("cancel01Icon").addEventListener("click", function() {
 
 // Automatically show candidatesDiv when the "See all candidates" button is clicked in the popup
 document.querySelector(".popup-button").addEventListener("click", function() {
-  // Close the Leaflet popup (use map.closePopup if you're using Leaflet)
+ 
   const map = window.map; // Assuming you have access to your map object
   if (map) {
     map.closePopup(); // This will close any active popup
@@ -524,7 +460,6 @@ document.querySelector(".popup-button").addEventListener("click", function() {
     popup.style.display = "none";  // Optionally hide the popup content
   }
 
-  // Show the candidatesDiv
   showCandidatesDiv();
 });
 
