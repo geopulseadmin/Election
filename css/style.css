@@ -1,0 +1,37 @@
+  /* Style for the top navigation bar */
+  #navbar {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+#navbar .input-group {
+    max-width: 300px;
+}
+#map {
+    height: 90vh;
+    width: 100%;
+    border-end-end-radius: 10px;
+    border-end-start-radius: 10px;
+    
+     /* background: white; */
+      /* box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.25); 
+      border-start-end-radius: 9999px;
+      border-start-start-radius: 9999px; */
+  }
+
+.leaflet-control {
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+}
+.navbar-icons {
+    margin-left: auto;
+}
+.navbar-icons i {
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.Geo img{
+    width: 32px;
+}

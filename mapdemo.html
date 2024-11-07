@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election</title>
+
+    <link rel="stylesheet" href="css/mapdemo.css">
+    <link rel="stylesheet" href="css/leafletcss.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+
+<body>
+    <div class="maindiv">
+        <div class="header">
+            <div class="title-container">
+                <div class="icon">
+                    <img src="image/Frame 14101261702.svg" alt="">
+                </div>
+                <div class="search-container">
+                    <div class="search-box">
+                                        <div class="SearchBar search-container" id="search-container">
+                            <select class="search-icon" aria-label="" id="search_type">
+                              <option value="">Select Type</option>
+                            </select>
+                            <input class="form-contro ms-2" type="search" placeholder="Search" aria-label="Search" id="searchInputDashboard" />
+                            <div id="autocompleteSuggestions" class="autocomplete-suggestions"></div>
+                          
+                        </div>
+                    </div>
+    
+                    <div class="filter-box">
+                        <div class="filter-icon location-icon" onclick="LiveLocation()">
+                            <img src="image/mage_location-fill.svg" alt="live location">
+                        </div>
+                    </div>
+                </div>
+             
+                <div class="icon-menu">
+                    <!-- <img src="image/menu-03.svg" alt=""> -->
+                </div>
+            </div>
+          
+        </div>
+        <div id="map"></div>
+    </div>
+
+   
+
+   <div class="container">
+        <div class="info-text">
+            This web application is an informational resource and not affiliated with any government agency
+        </div>
+        <div class="divider-container">
+            <div class="divider"></div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/layer.js"></script>
+    <script src="js/mapdemo.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+.landing-page-child {
+    position: absolute;
+    top: calc(50% - 296.5px);
+    left: calc(50% - 599px);
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    background-color: #fff;
+    width: 1197px;
+    height: 1197px;
+}
+.mask-group-icon {
+    position: absolute;
+    top: 54px;
+    left: -11px;
+    width: 75.1px;
+    height: 241px;
+}
+.mask-group-icon1 {
+    position: absolute;
+    top: 57px;
+    left: 180px;
+    width: 76.1px;
+    height: 214px;
+}
+.mask-group-icon2 {
+    position: absolute;
+    top: -31px;
+    left: 71.8px;
+    width: 90.8px;
+    height: 273px;
+}
+.vote {
+    align-self: stretch;
+    position: relative;
+    font-size: 44px;
+    left: -70px;
+    top: -130px;
+}
+.india {
+    align-self: stretch;
+    position: relative;
+    color: #004aad;
+    top: -140px;
+    left: -68px;
+    font-size: 48px;
+}
+.vote-parent {
+    position: absolute;
+    top: 357px;
+    left: 126px;
+    width: 131px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 9px;
+}
+.mask-group-parent {
+    position: absolute;
+    top: 196px;
+    /* left: 26px; */
+    left: calc(50% - 122px);
+    width: 360.1px;
+    height: 477px;
+    color: #ff7300;
+    font-family: Pompiere;
+}
+.clip-path-group {
+    width: 44px;
+    position: relative;
+    height: 35.6px;
+}
+.geopulse {
+    position: relative;
+}
+.clip-path-group-parent {
+    position: absolute;
+    top: 32px;
+    left: calc(50% - 122px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+    text-align: left;
+    font-size: 39px;
+    font-family: 'Plus Jakarta Sans';
+}
+.indian-commission-of {
+    position: absolute;
+    top: 595px;
+    left: calc(50% - 111px);
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+}
+.get-started {
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.get-started-wrapper {
+    position: absolute;
+    top: 531px;
+    /* left: 16px; */
+    left: calc(50% - 129px);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    background-color: #3b82f6;
+    width: 276px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 8px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 17px;
+}
+.landing-page {
+    width: 100%;
+    position: relative;
+    background-color: #3b82f6;
+    height: 828px;
+    overflow: hidden;
+    text-align: center;
+    font-size: 60px;
+    color: #fff;
+    font-family: Montserrat;
+}
+
+
+
