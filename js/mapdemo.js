@@ -392,13 +392,14 @@ const labelMapping = {
     "mva": "MahaVikasAaghadi",
     "ac_name": "Constituency Name"
 };
+// Global variable to store the popup reference
+let mapPopup;
 
 // Handle Map Click Event
 map.on("click", (e) => {
-  // Get the clicked location's constituency name (This can be from the map's data or manually assigned)
-  // In this example, I’m assuming the constituency name is provided by the clicked point (e.latlng)
-  let constituency = getConstituencyFromLocation(e.latlng);  // You'll need to define how to get this from the clicked location
-  
+  // Get the clicked location's constituency name
+  let constituency = getConstituencyFromLocation(e.latlng);  // Define this function based on your map data
+
   // Filter candidates based on the clicked constituency
   const candidates = candidateData.filter(candidate => candidate.Constituency.toLowerCase() === constituency.toLowerCase());
 
@@ -406,23 +407,59 @@ map.on("click", (e) => {
   let txtk1 = "";
 
   if (candidates.length > 0) {
-    txtk1 += `<tr><th colspan='2'>Candidate Count</th></tr>`;
-    txtk1 += `<tr><td>Total Candidates</td><td>${candidates.length}</td></tr>`;
-    // Loop through the candidates and add their details
-    candidates.forEach(candidate => {
-      txtk1 += `<tr><td>Name</td><td>${candidate.Name}</td></tr>`;
-      txtk1 += `<tr><td>Party</td><td>${candidate.Party}</td></tr>`;
-      txtk1 += `<tr><td>Status</td><td>${candidate.Status}</td></tr>`;
-      txtk1 += `<tr><td>Reference Link</td><td><a href="${candidate['Reference Link']}" target="_blank">View Profile</a></td></tr>`;
-    });
+    txtk1 += `<tr><td class="popup-header"><strong>Constituency:</strong></td><td>${constituency}</td></tr>`;
+    txtk1 += `<tr><td class="popup-header"><strong>Total Candidates:</strong></td><td>${candidates.length}</td></tr>`;
   } else {
-    txtk1 += `<tr><td colspan="2">No candidates found for this constituency.</td></tr>`;
+    // Default content if no candidates are found for this constituency
+    txtk1 += `<tr><td class="popup-header"><strong>Constituency:</strong></td><td>Kannad</td></tr>`;
+    txtk1 += `<tr><td class="popup-header"><strong>Total Candidates:</strong></td><td>12</td></tr>`;
   }
 
-  // Display the popup with candidate data
-  let detaildata1 = `<div style='max-height: 350px; overflow: auto;'><table style='width:110%;' class='popup-table'>${txtk1}</table><button onclick="viewMore('${constituency}')">View More</button></div>`;
-  L.popup().setLatLng(e.latlng).setContent(detaildata1).openOn(map);
+  // Complete popup HTML structure
+  let detaildata1 = `
+    <div class="popup-content-wrapper">
+      <table class="popup-table">
+        ${txtk1}
+      </table>
+     <button class="popup-button" onclick="showCandidatesDiv()">See all candidates</button>
+   
+    </div>`;
+
+    
+
+  // Display the popup on the map
+  mapPopup = L.popup().setLatLng(e.latlng).setContent(detaildata1).openOn(map);
 });
+
+
+
+
+// Function to show candidate list at the bottom of the screen
+function viewMore(constituency) {
+  // Show the candidate list div
+  document.getElementById('candidateListWrapper').style.display = 'block';
+
+  // Scroll the page to the bottom to reveal the candidate list div
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: 'smooth'
+  });
+
+  // Close the popup on the map after clicking "See all candidates"
+  if (mapPopup) {
+    map.closePopup();
+  }
+}
+
+// Function to close the candidate list
+function closeCandidateList() {
+  document.getElementById('candidateListWrapper').style.display = 'none';
+
+  // Allow normal scrolling again after closing the candidate list
+  document.body.style.overflow = 'auto';
+}
+
+
 
 // Function to get constituency name from the clicked location (You need to define this based on your map data)
 function getConstituencyFromLocation(latlng) {
@@ -434,7 +471,7 @@ function getConstituencyFromLocation(latlng) {
   if (latlng.lat > 20 && latlng.lng < 70) {
     return "Constituency A";  // Replace with your actual mapping logic
   } else if (latlng.lat > 30 && latlng.lng < 80) {
-    return "Constituency B";
+    return "Constituency B"
   }
   // Add other conditions or a method to fetch actual constituency name based on latlng
   return "Unknown Constituency";
@@ -446,3 +483,50 @@ function viewMore(constituency) {
   // For example, you can open a new URL to show more candidate info based on the constituency
   // window.open(`candidate_details.html?constituency=${constituency}`, "_blank");
 }
+
+// Function to display the candidatesDiv at the bottom of the screen
+function showCandidatesDiv() {
+  const candidatesDiv = document.getElementById("candidatesDiv");
+  const mapContainer = document.getElementById("map");
+
+  // Display the candidatesDiv and set its position
+  candidatesDiv.style.display = "block";
+  candidatesDiv.style.position = "fixed";
+  candidatesDiv.style.bottom = "176px";
+  candidatesDiv.style.width = "83%";
+  candidatesDiv.style.zIndex = "1000";
+
+  // Adjust the margin of mapContainer to move it above the candidatesDiv
+  mapContainer.style.marginBottom = "176px"; // Adjust this to the height of candidatesDiv
+}
+
+// JavaScript code to hide the candidatesDiv on cancel icon click
+document.getElementById("cancel01Icon").addEventListener("click", function() {
+  const candidatesDiv = document.getElementById("candidatesDiv");
+  const mapContainer = document.getElementById("map");
+
+  // Hide the candidatesDiv and reset mapContainer margin
+  candidatesDiv.style.display = "none";
+  mapContainer.style.marginBottom = "10vh"; // Reset the map's margin
+});
+
+// Automatically show candidatesDiv when the "See all candidates" button is clicked in the popup
+document.querySelector(".popup-button").addEventListener("click", function() {
+  // Close the Leaflet popup (use map.closePopup if you're using Leaflet)
+  const map = window.map; // Assuming you have access to your map object
+  if (map) {
+    map.closePopup(); // This will close any active popup
+  }
+
+  // Hide the popup content (optional if you want to hide content explicitly)
+  const popup = document.querySelector(".leaflet-popup-content-wrapper");
+  if (popup) {
+    popup.style.display = "none";  // Optionally hide the popup content
+  }
+
+  // Show the candidatesDiv
+  showCandidatesDiv();
+});
+
+
+
