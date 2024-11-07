@@ -1,14 +1,8 @@
+
+
 <?php
 
-// //live databse
-// $host = "157.173.222.9";
-// $port = "5432";
-// $dbname = "Mojani_new";
-// $user = "postgres";
-// $password = "Mojani@992101";
 
-
-// test database
 $host = "157.173.222.9";
 $port = "5432";
 $dbname = "mojani";
@@ -17,9 +11,15 @@ $password = "Mojani@992101";
 
 
 try {
+    // Establish a connection to the database
     $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
+    
+    // Set PDO to throw exceptions on error
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // echo "Connected successfully!";
 } catch (PDOException $e) {
-    die("Error connecting to database: " . $e->getMessage());
+    // Handle connection errors
+    echo "Connection failed: " . $e->getMessage();
 }
 ?>
