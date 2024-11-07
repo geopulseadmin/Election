@@ -1,49 +1,94 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="initial-scale=1, width=device-width">
-        <title>ELECTION</title>
-        <link rel="icon" href="image/Hand3.png" type="image/x-icon">
-        <link rel="stylesheet" href="css/index.css" />
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Pompiere:wght@400&display=swap" />
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Plus Jakarta Sans:wght@700&display=swap" />
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" />
-            <style>
-                a{
-                    text-decoration: none;
-                    color: white;
-                }
-            </style>
-    </head>
-    <body>
-        <div class="landing-page">
-            <div class="landing-page-child">
-            </div>
-            <div class="mask-group-parent">
-                <img class="mask-group-icon" alt src="./image/Hand3.png">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election</title>
+    <style>
+        body {
+            background-color: white; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; 
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; 
+            transition: background-color 1s ease;
+        }
 
-                <img class="mask-group-icon1" alt src="./image/Hand2.png">
+        @keyframes imageAppear {
+            0% {
+                opacity: 0;
+                transform: scale(4);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1); 
+            }
+        }
 
-                <img class="mask-group-icon2" alt src="./image/Hand1.png">
+        @keyframes fadeIn {
+            0% {
+                opacity: 0; 
+            }
+            100% {
+                opacity: 1; 
+            }
+        }
 
-                <div class="vote-parent">
-                    <div class="vote">VOTE</div>
-                    <div class="india">INDIA</div>
-                </div>
-            </div>
-            <div class="clip-path-group-parent">
-                <img class="clip-path-group" alt src="./image/company_icon.png">
+        .responsive-image {
+            margin-top: -155px;
+            max-width: 100%;
+            height: auto;
+            width: 70%; 
+            animation: imageAppear 1s ease-in-out 2s forwards; 
+            opacity: 0; 
+        }
 
-                <b class="geopulse">GeoPulse</b>
-            </div>
-            <div class="indian-commission-of">Indian Commission of India</div>
-            <div class="get-started-wrapper" id="frameContainer1">
-                <a href="mapdemo.html" class="get-started">Get Started</a>
-            </div>
-        </div>
-    </body>
+        .responsive-image2 {
+            margin-top: 102px;
+            max-width: 100%;
+            height: auto;
+            width: 42%; 
+            animation: fadeIn 1s ease-in-out 4s forwards; 
+            opacity: 0; 
+        }
+    </style>
+</head>
+<body>
+    <img src="./image/Clip_path_group.svg" alt="Centered Image" class="responsive-image">
+    <img id="dynamicImage" src="./image/loading4.png" alt="Second Image" class="responsive-image2"> <!-- Second Image -->
+    
+    <script>
+       
+        setTimeout(() => {
+            document.body.style.backgroundColor = '#3b82f6'; 
+        }, 1000); 
+
+        const images = [
+            "./image/loading4.png",
+            "./image/loading4.png", 
+            "./image/loading4.png"  
+        ];
+
+        let currentIndex = 0; 
+        const dynamicImage = document.getElementById('dynamicImage');
+
+        dynamicImage.src = images[currentIndex];
+
+        function switchImage() {
+            currentIndex = (currentIndex + 1) % images.length; 
+            dynamicImage.src = images[currentIndex]; 
+        }
+
+        setInterval(switchImage, 1000);
+
+        // Redirect to page2.html after 4 seconds
+        setTimeout(() => {
+            window.location.href = 'page2.html'; 
+        }, 9000); // 4000 milliseconds = 4 seconds
+    </script>
+</body>
 </html>
