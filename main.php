@@ -1,3 +1,13 @@
+<?php
+session_start();
+if (!isset($_SESSION['from_index']) || $_SESSION['from_index'] !== true) {
+    header('Location: index.php');
+    exit();
+}
+// Clear the session variable after validating
+unset($_SESSION['from_index']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +24,7 @@
       <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 
-<body>
+<body style="overflow: hidden;">
       <div class="maindiv">
             <div class="header">
                   <div class="title-container">
@@ -63,7 +73,7 @@
             </div>
       </div>
 
-      <div id="candidatesDiv" class="frame-parent" style="display: none;">
+      <!-- <div id="candidatesDiv" class="frame-parent" style="display: none;">
             <div class="frame-group">
                   <div class="frame-container">
                         <div class="constituency-parent">
@@ -344,7 +354,7 @@
             </div>
             <img class="cancel-01-icon" alt="" src="image/cancel-01 (2).png" id="cancel01Icon">
 
-      </div>
+      </div> -->
 
 
     <!-- Leaflet JS -->

@@ -1,3 +1,13 @@
+<?php
+session_start();
+if (!isset($_SESSION['from_index']) || $_SESSION['from_index'] !== true) {
+    header('Location: index.php');
+    exit();
+}
+// Clear the session variable after validating
+unset($_SESSION['from_index']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -210,8 +220,8 @@
     <div class="subtext">Indian Commission of India</div>
 
     <div class="get-started-button">
-        <!--<a href="main.html" class="get-started-text">Get Started</a>-->
-        <a class="get-started-text">Get Started</a>
+        <a href="main.php" class="get-started-text">Get Started</a>
+        <!-- <a class="get-started-text">Get Started</a> -->
     </div>
 
     <div class="left-shape">

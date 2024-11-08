@@ -24,13 +24,13 @@ var Esri_WorldImagery = L.tileLayer(
 var baseURL = "https://info.dpzoning.com/geoserver/Mojani/wms";
 
 var Villages_Boundary = L.tileLayer.wms(baseURL, {
-    layers: "Villages_Boundary",
+    layers: "Villages",
     format: "image/png",
     transparent: true,
     tiled: true,
     version: "1.1.0",
     opacity: 1,
-});
+}).addTo(map);
 
 var Legislative_Assembly_Boundary = L.tileLayer.wms(baseURL, {
     layers: "Legislative_Assembly_Boundary",
@@ -61,7 +61,7 @@ var WMSlayers = {
     "District Boundary": District_Boundary,
 };
 
-var control = new L.control.layers(baseLayers, WMSlayers).addTo(map);
+var control = new L.control.layers(baseLayers, WMSlayers);
 control.setPosition('topright');
 
 map.zoomControl.remove();

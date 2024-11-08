@@ -195,13 +195,13 @@ body{
     word-wrap: break-word;
 }
 
-.divider-container {
+/* .divider-container {
     width: 412px;
     height: 24px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 .divider {
     width: 108px;
@@ -251,6 +251,20 @@ body{
 .autocomplete-active {
     background-color: #3B82F6;
     color: white;
+}
+
+.bottonView{
+    width: 100%;
+    border: 2px solid blue;
+    border-radius: 10px;
+    padding: 2px;
+    background: none;
+}
+
+.candtable{
+    width:100%; 
+    border-collapse: collapse;
+     margin-top: 10px;
 }
 /* 
 

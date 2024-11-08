@@ -1,3 +1,8 @@
+<?php
+session_start();
+$_SESSION['from_index'] = true;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -188,7 +193,7 @@
         }, 5000); // 2 seconds after loader appears
         // After 2 seconds, redirect to a new landing page (e.g., "landing-page.html")
         setTimeout(() => {
-            window.location.href = 'landing.html'; // Change this URL to your desired landing page
+            window.location.href = 'landing.php'; // Change this URL to your desired landing page
         }, 7000); 
     </script>
 </body>
