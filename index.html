@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,6 +27,7 @@
                 opacity: 0;
                 transform: scale(4);
             }
+
             100% {
                 opacity: 1;
                 transform: scale(1);
@@ -34,12 +36,23 @@
 
         /* Animation for fading in and out */
         @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
+
         @keyframes fadeOut {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
         }
 
         /* Logo styling */
@@ -63,8 +76,10 @@
             align-items: center;
             backdrop-filter: blur(5px);
             opacity: 0;
-            visibility: hidden; /* Hidden initially */
-            transition: opacity 1s ease, visibility 0s 1s; /* Delay visibility change until fade completes */
+            visibility: hidden;
+            /* Hidden initially */
+            transition: opacity 1s ease, visibility 0s 1s;
+            /* Delay visibility change until fade completes */
         }
 
         .loader-container {
@@ -95,23 +110,30 @@
 
         /* Geopulse text styling */
         .geopulse-text {
-          
-color: white;
-font-size: 40px;
 
-font-weight: 700;
-word-wrap: break-word;
+            color: white;
+            font-size: 40px;
+
+            font-weight: 700;
+            word-wrap: break-word;
             opacity: 0;
-            transition: opacity 1s ease; /* Fade in Geopulse text */
+            transition: opacity 1s ease;
+            /* Fade in Geopulse text */
         }
-        .geopulse-text img{
+
+        .geopulse-text img {
             width: 32px;
         }
 
         /* Spin animation for the loader */
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Hidden class to fade out logo */
@@ -120,6 +142,7 @@ word-wrap: break-word;
         }
     </style>
 </head>
+
 <body>
     <!-- Logo -->
     <img src="./image/Clip_path_group.svg" alt="Centered Image" class="responsive-image" id="logo">
@@ -133,7 +156,7 @@ word-wrap: break-word;
     </div>
 
     <!-- Geopulse text hidden initially -->
-    <div class="geopulse-text" id="geopulseText"><img src="./image/Clip_path_group.svg" alt="">  Geopulse</div>
+    <div class="geopulse-text" id="geopulseText"><img src="./image/Clip_path_group.svg" alt=""> Geopulse</div>
 
     <script>
         // Change background color after a delay
@@ -163,10 +186,11 @@ word-wrap: break-word;
             loadingOverlay.style.visibility = 'hidden'; // Hide loader after fading out
             geopulseText.style.opacity = '1'; // Fade in Geopulse text
         }, 5000); // 2 seconds after loader appears
-          // After 2 seconds, redirect to a new landing page (e.g., "landing-page.html")
-          setTimeout(() => {
+        // After 2 seconds, redirect to a new landing page (e.g., "landing-page.html")
+        setTimeout(() => {
             window.location.href = 'landing.html'; // Change this URL to your desired landing page
         }, 7000); 
     </script>
 </body>
+
 </html>
